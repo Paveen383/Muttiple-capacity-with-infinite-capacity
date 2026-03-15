@@ -1,4 +1,7 @@
 # Multiple server with infinite capacity - (M/M/c):(oo/FIFO)
+
+# date : 25/02/2026
+
 ## Aim :
 To find (a) average number of materials in the system (b) average number of materials in the conveyor (c) waiting time of each material in the system (d) waiting time of each material in the conveyor, if the arrival  of materials follow poisson process with the mean interval time 10 seconds, serivice time of two lathe machine follow exponential distribution with mean serice time 1 second and average service time of robot is 7seconds.
 
@@ -19,11 +22,45 @@ Queuing are the most frequently encountered problems in everyday life. For examp
 
 ## Experiment:
 
+![ss](vs5_1.png)
+
+![ss](vs5_2.png)
 
 ## Program
 
+```
+developed by : Paveen Kumaran SV
+reg. no. : 212224220071
+
+import math
+
+arrival_time = float(input("Enter mean interarrival time: "))
+service_time = float(input("Enter mean service time: "))
+c = int(input("Enter number of servers: "))
+
+lam = 1/arrival_time
+mu = 1/service_time
+rho = lam/(c*mu)
+
+sum1 = sum((lam/mu)**n / math.factorial(n) for n in range(c))
+sum2 = (lam/mu)**c / (math.factorial(c)*(1-rho))
+P0 = 1/(sum1 + sum2)
+
+Lq = (P0 * (lam/mu)**c * rho) / (math.factorial(c)*(1-rho)**2)
+L = Lq + lam/mu
+Wq = Lq/lam
+W = Wq + 1/mu
+
+print("Average number in system =", round(L,3))
+print("Average number in queue =", round(Lq,3))
+print("Waiting time in system =", round(W,3))
+print("Waiting time in queue =", round(Wq,3))
+```
 
 ## Output :
 
+![SS](ss_5.png)
+
 ## Result : 
 
+Thus the average number of materials in the system and conveyor, waiting time of each material in the system and conveyor is found successfully.
